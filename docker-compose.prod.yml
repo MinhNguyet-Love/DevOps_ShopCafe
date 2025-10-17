@@ -1,21 +1,19 @@
-version: "3.8"
-
 services:
   backend:
     image: ${DOCKERHUB_USERNAME}/shopcafe-devops-backend:latest
-    container_name: shopcafe-devops-backend
+    container_name: shopcafe-backend
+    ports:
+      - "8080:8080"
     environment:
       - SPRING_DATA_MONGODB_URI=${MONGO_URI}
       - SERVER_PORT=8080
-    expose:
-      - "8080"
     restart: always
 
   frontend:
     image: ${DOCKERHUB_USERNAME}/shopcafe-devops-frontend:latest
-    container_name: shopcafe-devops-frontend
+    container_name: shopcafe-frontend
+    ports:
+      - "5173:80"
     depends_on:
       - backend
-    ports:
-      - "80:80"
     restart: always
