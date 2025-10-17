@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: backend_shopcafe
+    ports:
+      - "8080:8080"
+    volumes:
+      # ✅ Mount thư mục chứa ảnh để ảnh không bị mất và có thể truy cập được
+      - ./backend/uploads:/uploads
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://minhnguyet22072004_db_user:PLyCuKheHmYcSJuP@cafeshop.6ggcnov.mongodb.net/cafeshopdb?retryWrites=true&w=majority
+      - SERVER_PORT=8080
+    networks:
+      - shopcafe-net
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend_shopcafe
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    environment:
+      # ✅ Biến này giúp React biết URL backend nội bộ
+      - VITE_API_BASE_URL=http://backend_shopcafe:8080
+    networks:
+      - shopcafe-net
+
+networks:
+  shopcafe-net:
+    driver: bridge
