@@ -93,8 +93,10 @@ jobs:
           docker build -t minhnguyet2207/shopcafe-devops-backend:latest ./backend
           docker push minhnguyet2207/shopcafe-devops-backend:latest
 
+
       # 🧱 6. Build & Push Frontend
       - name: Build and push frontend
+
         run: |
           docker build -t minhnguyet2207/shopcafe-devops-frontend:latest ./frontend
           docker push minhnguyet2207/shopcafe-devops-frontend:latest
